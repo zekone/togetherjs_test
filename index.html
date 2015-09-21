@@ -5,21 +5,71 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://togetherjs.com/togetherjs-min.js"></script>
 
+<script src="//developer.appear.in/scripts/appearin-sdk.0.0.4.min.js"></script>
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  TogetherJS();
+
+  var width = $(window).width();
+  var winHeight = $(window).height();
+
+  function setVideoSize(){
+    var video = $("video#videoPlayer");
+    video.css('height', '66vh');
+    video.css('width', '100vw');
+  }
+
+  function setCamSize(){
+    var cam = $("iframe#camStream");
+    cam.css('height', '33vh');
+    cam.css('width', '100vw');
+  }
+
+  setVideoSize();
+  setCamSize();
+
+
+  setTimeout(function(){
+
+    var AppearIn = window.AppearIn;
+    var appearin = new AppearIn();
+
+    var url = TogetherJS.shareUrl();
+    var urlID = url.match(/\=(.*)/)[1];
+    var iframe = document.getElementById("camStream");
+    appearin.addRoomToIframe(iframe, urlID);
+
+  },1000)
+
+
+});
+
+
+
+
+</script>
+
 
 </head>
 
 
 <body>
 
-  <button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
+  <!-- <button onclick="TogetherJS(this); return false;">Start TogetherJS</button> -->
 
-  <video
-   src= "https://r4---sn-5hne6n7l.googlevideo.com/videoplayback?id=f9a08a62c6990dfb&itag=22&source=picasa&begin=0&requiressl=yes&mm=30&mn=sn-5hne6n7l&ms=nxu&mv=m&nh=IgpwcjA0LmFtczE2KgkxMjcuMC4wLjE&pl=24&lmt=1442184261899562&mime=video/mp4&mt=1442783424&ip=185.66.140.35&ipbits=0&expire=1442812303&sparams=ip,ipbits,expire,id,itag,source,requiressl,mm,mn,ms,mv,nh,pl,lmt,mime&signature=7EA103D9AA383E43029974BEFAF2F675A81B2A83.6FC8E5B9C53B224AF3125AA1B5067C44DA1F7D74&key=ck2" 
+  <video id="videoPlayer"
+   src= "https://r4---sn-5hne6n7l.googlevideo.com/videoplayback?id=f9a08a62c6990dfb&itag=22&source=picasa&begin=0&requiressl=yes&mm=30&mn=sn-5hne6n7l&ms=nxu&mv=m&nh=IgpwcjA0LmFtczE2KgkxMjcuMC4wLjE&pl=24&lmt=1442184261899562&mime=video/mp4&mt=1442783424&ip=185.66.140.35&ipbits=0&expire=1442812303&sparams=ip,ipbits,expire,id,itag,source,requiressl,mm,mn,ms,mv,nh,pl,lmt,mime&signature=7EA103D9AA383E43029974BEFAF2F675A81B2A83.6FC8E5B9C53B224AF3125AA1B5067C44DA1F7D74&key=ck2"
    controls>
   </video>
 
 
-  <iframe src="https://appear.in/aquatic-cobra" width="800" height="640" frameborder="0"></iframe>
+  <iframe id="camStream" frameborder="0"></iframe>
 
 </body>
 </html>
