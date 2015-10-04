@@ -3,15 +3,16 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://togetherjs.com/togetherjs-min.js"></script>
+<script src="https://cdn.rawgit.com/padolsey-archive/jquery.fn/master/cross-domain-ajax/jquery.xdomainajax.js"></script>
 
+<!-- <script src="https://togetherjs.com/togetherjs-min.js"></script> -->
 <script src="//developer.appear.in/scripts/appearin-sdk.0.0.4.min.js"></script>
 
 <script>
 $(document).ready(function(){
 
 
-  TogetherJS(this);
+  // TogetherJS(this);
   var appearin = new AppearIn();
 
   appearin.getRandomRoomName().then(function (roomName) {
@@ -19,20 +20,41 @@ $(document).ready(function(){
   });
 
 
-  TogetherJS.on("ready", function(){
-    var regex = /=(.+)/; // match '=' and capture everything that follows
-    var url = TogetherJS.shareUrl();
-
-    var roomID = url.match(regex)[1];
-
-    setAppearID(roomID);
-  });
-
-  TogetherJS.reinitialize();
+  // TogetherJS.on("ready", function(){
+  //   var regex = /=(.+)/; // match '=' and capture everything that follows
+  //   var url = TogetherJS.shareUrl();
+  //
+  //   var roomID = url.match(regex)[1];
+  //
+  //   setAppearID(roomID);
+  // });
+  //
+  // TogetherJS.reinitialize();
 
   function setAppearID(id){
     appearin.addRoomToElementById("camFrame", id);
   };
+
+
+  $(".button").click(function(){
+    var streamUrl = $("#streamLink").val();
+
+    $.ajax({
+      url: streamUrl,
+      type: 'GET',
+      success: function(res) {
+        // .find('#player-video').attr("src");
+          var video = $(res.responseText);
+          // $(".hidden-html").html(video);
+          console.log("*********");
+          // console.log( JSON.stringify( $('*:contains("url_playlist")').filter("script")) );
+          console.log(  res  );
+      }
+    });
+
+  });
+
+
 
 });
 </script>
@@ -41,6 +63,12 @@ $(document).ready(function(){
 
 
 <body>
+  <div style="" class="hidden-html"></div>
+
+  <input type="text" id="streamLink" >
+  <div class="button" >go</div>
+
+  <div class="test"></div>
 
   <!-- <button onclick="TogetherJS(this);" style="display: none;"></button> -->
 
